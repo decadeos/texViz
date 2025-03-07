@@ -37,6 +37,20 @@ pts_dst = np.float32([[50, 200], [250, 200], [50, 100]])
 I_affine = affine_transform(I, pts_src, pts_dst)
 I_affine_rgb = convert_to_rgb(I_affine)
 
+## param skos
+skos = 0.5
+I_bevel = bevel(I, skos)
+I_bevel_rgb = convert_to_rgb(I_bevel)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -66,3 +80,6 @@ show(I_rotate_rgb, "rotated image")
 
 ## show affined image
 show(I_affine_rgb, "affined Image")
+
+## show beveled image
+show(I_bevel_rgb, "beveled Image")

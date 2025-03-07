@@ -52,3 +52,9 @@ def affine_transform(image, pts_src, pts_dst):
     T = cv2.getAffineTransform(pts_src, pts_dst)
     affine_image = cv2.warpAffine(image, T, (cols, rows))
     return affine_image
+
+def bevel(image, skos):
+    rows, cols = size(image)
+    T = np.float32([[1, skos, 0], [0 ,1, 0]])
+    I_bevel = cv2.warpAffine(image, T, (cols, rows))
+    return I_bevel
