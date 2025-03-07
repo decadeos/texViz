@@ -26,7 +26,10 @@ scale_y = 0.5
 I_scale = scaling(I, scale_x, scale_y)
 I_scale_rgb = convert_to_rgb(I_scale)
 
-
+## param rotate
+phi = 30
+I_rotate = rotate(I, phi)
+I_rotate_rgb = convert_to_rgb(I_rotate)
 
 
 
@@ -54,3 +57,6 @@ show(I_reflect_OY_rgb, "reflected by OY image")
 
 ## show scaled image
 show(I_scale_rgb, "scaled image")
+
+## show rotated image
+show(I_rotate_rgb, "rotated image")

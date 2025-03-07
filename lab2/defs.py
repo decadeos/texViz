@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 def show(image, title):
     plt.imshow(image)
@@ -38,3 +39,10 @@ def scaling(image, scale_x, scale_y):
     T = np.float32([[scale_x, 0, 0] ,[0, scale_y, 0]])
     I_scale = cv2.warpAffine(image, T, (int(cols * scale_x), int(rows*scale_y)))
     return I_scale
+
+def rotate(image, phi):
+    rows, cols = size(image)
+    phi = math.radians(phi)
+    T = np.float32([[ math.cos(phi), -math.sin(phi), 0], [math.sin(phi), math.cos(phi), 0]])
+    I_rotate = cv2.warpAffine(image, T, (cols, rows))
+    return I_rotate
