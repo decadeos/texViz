@@ -15,7 +15,8 @@ operations = [
     ("Affined", lambda img: affine_transform(img, 
         np.float32([[50, 300], [150, 200], [50, 50]]), 
         np.float32([[50, 200], [250, 200], [50, 100]]))),
-    ("Beveled", lambda img: bevel(img, 0.5))
+    ("Beveled", lambda img: bevel(img, 0.5)),
+    ("piecewiselineared", lambda img: (piecewiselinear(img, 2)))
 ]
 
 for title, operation in operations:

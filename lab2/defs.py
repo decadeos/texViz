@@ -58,3 +58,10 @@ def bevel(image, skos):
     T = np.float32([[1, skos, 0], [0 ,1, 0]])
     I_bevel = cv2.warpAffine(image, T, (cols, rows))
     return I_bevel
+
+def piecewiselinear(image, stretch):
+    rows, cols = size(image)
+    T = np.float32([[stretch, 0, 0], [0, 1, 0]])
+    I_piecewiselinear = image.copy()
+    I_piecewiselinear[:, int(cols/2):, :] = cv2.warpAffine(I_piecewiselinear[:, int(cols/2):, :], T, (cols - int(cols/2), rows))
+    return I_piecewiselinear
