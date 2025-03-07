@@ -2,7 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 from defs import *
 
-I = cv2.imread("lab2/image.jpg")
+I = cv2.imread("task1/image.jpg")
 I_rgb = convert_to_rgb(I)
 
 operations = [
