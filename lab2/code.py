@@ -31,8 +31,11 @@ phi = 30
 I_rotate = rotate(I, phi)
 I_rotate_rgb = convert_to_rgb(I_rotate)
 
-
-
+## param affine
+pts_src = np.float32([[50, 300], [150, 200], [50, 50]])
+pts_dst = np.float32([[50, 200], [250, 200], [50, 100]])
+I_affine = affine_transform(I, pts_src, pts_dst)
+I_affine_rgb = convert_to_rgb(I_affine)
 
 
 
@@ -60,3 +63,6 @@ show(I_scale_rgb, "scaled image")
 
 ## show rotated image
 show(I_rotate_rgb, "rotated image")
+
+## show affined image
+show(I_affine_rgb, "affined Image")

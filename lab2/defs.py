@@ -46,3 +46,9 @@ def rotate(image, phi):
     T = np.float32([[ math.cos(phi), -math.sin(phi), 0], [math.sin(phi), math.cos(phi), 0]])
     I_rotate = cv2.warpAffine(image, T, (cols, rows))
     return I_rotate
+
+def affine_transform(image, pts_src, pts_dst):
+    rows, cols = size(image)
+    T = cv2.getAffineTransform(pts_src, pts_dst)
+    affine_image = cv2.warpAffine(image, T, (cols, rows))
+    return affine_image
