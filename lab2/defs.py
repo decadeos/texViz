@@ -75,3 +75,25 @@ def projective(image, a, b, c, d, e, f, g, h, i):
     T = np.float32([[a, b, c], [d, e, f], [g, h, i]])
     I_projective = cv2.warpPerspective(image, T, (cols, rows))
     return I_projective
+
+def polynomial(image, T):
+    rows, cols = size(image)
+    I_polynomial = np.zeros_like(image)
+    x, y = np.meshgrid(np.arange(cols), np.arange(rows))
+    xnew = np.round(T[0, 0] + x*T[1, 0] + y*T[2, 0] + x*x*T[3, 0] + x*y*T[4, 0] + y*y*T[5, 0]).astype(np.float32)
+    ynew = np.round(T[0, 1] + x*T[1, 1] + y*T[2, 1] + x*x*T[3, 1] + x*y*T[4, 1] + y*y*T[5, 1]).astype(np.float32)
+    mask = np.logical_and(np.logical_and(xnew >= 0, xnew < cols), np.logical_and(ynew >= 0, ynew < rows))
+    if image.ndim == 2:
+        I_polynomial[ynew[mask].astype(int), xnew[mask].astype(int)] = image[y[mask], x[mask]]
+    else:
+        I_polynomial[ynew[mask].astype(int), xnew[mask].astype(int), :] = image[y[mask], x[mask], :]
+    return I_polynomial
+
+def sinusoidal(image, amplitude=20, frequency=90):
+    rows, cols = size(image)
+    u, v = np.meshgrid(np.arange(cols), np.arange(rows))
+    u = u + amplitude * np.sin(2 * math.pi * v / frequency)
+    u = u.astype(np.float32)
+    v = v.astype(np.float32)
+    distorted_image = cv2.remap(image, u, v, interpolation=cv2.INTER_LINEAR)
+    return distorted_image
