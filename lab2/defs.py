@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+## функции для удобства
 def show(image, title):
     plt.imshow(image)
     plt.title(title)
@@ -16,6 +17,7 @@ def size(image):
     rows, cols = image.shape[0:2]
     return rows, cols
 
+## линейные функции
 def sdvig(image, tx, ty):
     rows, cols = size(image)
     T = np.float32([[1, 0, tx], [0, 1, ty]])
@@ -65,3 +67,11 @@ def piecewiselinear(image, stretch):
     I_piecewiselinear = image.copy()
     I_piecewiselinear[:, int(cols/2):, :] = cv2.warpAffine(I_piecewiselinear[:, int(cols/2):, :], T, (cols - int(cols/2), rows))
     return I_piecewiselinear
+
+## нелинейные функции
+
+def projective(image, a, b, c, d, e, f, g, h, i):
+    rows, cols = size(image)
+    T = np.float32([[a, b, c], [d, e, f], [g, h, i]])
+    I_projective = cv2.warpPerspective(image, T, (cols, rows))
+    return I_projective

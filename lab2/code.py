@@ -16,7 +16,8 @@ operations = [
         np.float32([[50, 300], [150, 200], [50, 50]]), 
         np.float32([[50, 200], [250, 200], [50, 100]]))),
     ("Beveled", lambda img: bevel(img, 0.5)),
-    ("piecewiselineared", lambda img: (piecewiselinear(img, 2)))
+    ("piecewiselineared", lambda img: (piecewiselinear(img, 2))),
+    ("projectived", lambda img: (projective(img, 1.1, 0.35, 0, 0.2, 1.1, 0, 0.00075, 0.00005, 1)))
 ]
 
 for title, operation in operations:
