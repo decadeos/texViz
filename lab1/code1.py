@@ -161,23 +161,29 @@ def plot_histograms(original, transformed, title):
     plt.tight_layout()
     plt.show()
 
+# Загрузка изображения
 I = cv2.imread('lab1/im.jpg')
 
 if I is None:
     print("Ошибка: Не удалось загрузить изображение. Проверьте путь к файлу.")
 else:
+    # Применение различных преобразований
     transformations = {
         "линейного преобразования": uniform_transform(I),
         "арифметических операций": arithmetic_operations(I),
         "растяжения динамического диапазона": dynamic_range_stretching(I),
         "экспоненциального преобразования": exponential_transform(I, gamma=1.5),
         "преобразования по закону Рэлея": rayleigh_transform(I),
-        "преобразования по закону степени 2/3": power_law_transform(I),
+        "преобразования по закону степени 2_3": power_law_transform(I),  # Заменяем "/" на "_"
         "гиперболического преобразования": hyperbolic_transform(I),
     }
     
     for title, transformed in transformations.items():
+        # Заменяем пробелы на "_" в названии файла
+        filename = title.replace(" ", "_") + ".jpg"
+        # Сохраняем изображение
+        cv2.imwrite(filename, transformed)
+        # Строим гистограммы
         plot_histograms(I, transformed, title)
-        cv2.imwrite(f'{title.replace(" ", "_")}.jpg', transformed)
     
     print("Все преобразования выполнены и сохранены в файлы.")
