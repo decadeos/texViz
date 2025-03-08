@@ -1,19 +1,17 @@
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
 from defs import *
+import os
 
-img1 = cv2.imread("task2/podushka.png")
-img2 = cv2.imread("task2/bochka.png")
+# Путь к файлу
+image_path = os.path.join(os.path.dirname(__file__), "podushka.png")
+I = cv2.imread(image_path)
+I_rgb = convert_to_rgb(I)
 
-img1_rgb = convert_to_rgb(img1)
-img2_rgb = convert_to_rgb(img2)
+I_barrel = correct_distortion(I_rgb, 0.1, 0.12, "barrel")
+I_pincushion = correct_distortion(I_rgb, 0.1, 0.12, "pincushion")
 
-operations = [
-    ("Подушкообразная дистория", lambda img: podushka(img2)),
-    ("Бочкообразная дистория", lambda img: bochka(img1)),
-]
-
-for title, operation in operations:
-    result = operation(None)
-    result_rgb = convert_to_rgb(result)
-    show(result_rgb, title)
+show(I_rgb, "Original Image")
+show(I_barrel, "Barrel Distortion Correction")
+show(I_pincushion, "Pincushion Distortion Correction")
